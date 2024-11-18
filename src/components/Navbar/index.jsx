@@ -1,13 +1,12 @@
-// src/components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../redux/actions/userActions';
-import logo from '../../assets/img/argentBankLogo.png';
+import { logout } from '../../redux/actions/userActions'; // Assurez-vous que le chemin est correct
+import logo from '../../assets/img/argentBankLogo.png'; // Chemin du logo
 
 function Navbar() {
     const dispatch = useDispatch();
-    const { isAuthenticated, user } = useSelector((state) => state?.user);
+    const { isAuthenticated, user } = useSelector((state) => state.user); // Accéder à user et isAuthenticated
 
     const handleLogout = () => {
         dispatch(logout());
@@ -22,16 +21,14 @@ function Navbar() {
             <div>
                 {isAuthenticated ? (
                     <>
-                        <span className="main-nav-item">{user.username}</span>
+                        <span className="main-nav-item">{user ? user.username : 'Utilisateur'}</span>
                         <button onClick={handleLogout} className="main-nav-item">
                             <i className="fa fa-sign-out"></i>
-                            Logout
                         </button>
                     </>
                 ) : (
                     <Link className="main-nav-item" to="/sign-in">
-                        <i className="fa fa-user-circle me-2"></i>
-                        Sign In
+                        <i className="fa fa-user-circle me-2"></i> Sign In
                     </Link>
                 )}
             </div>

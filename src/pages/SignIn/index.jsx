@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'; // Import du hook useNavigate
 import { loginRequest, loginSuccess, loginFailure } from '../../redux/actions/userActions';
 import { login } from '../../lib/client';
 
@@ -7,15 +8,18 @@ function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // Initialisation du hook
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         dispatch(loginRequest());
-
         try {
             const token = await login(email, password);
-            dispatch(loginSuccess({ email, token })); // Enregistre le jeton et l'email dans le store
+            console.log('Token récupéré:', token); // Debug
+            dispatch(loginSuccess(email, token));
 
+            // Redirection vers userProfile après connexion réussie
+            navigate("/UserProfile");
         } catch (error) {
             dispatch(loginFailure(error.message));
         }
@@ -47,9 +51,7 @@ function SignIn() {
                             required
                         />
                     </div>
-                    <button type="submit" className="sign-in-button">
-                        Sign In
-                    </button>
+                    <button type="submit" className="sign-in-button">Sign In</button>
                 </form>
             </section>
         </main>
