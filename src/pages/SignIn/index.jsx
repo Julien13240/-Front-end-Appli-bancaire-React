@@ -1,34 +1,32 @@
+// SignIn.js
+
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom'; // Import du hook useNavigate
-import { loginRequest, loginSuccess, loginFailure } from '../../redux/actions/userActions';
-import { login } from '../../lib/client';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../redux/actions/userActions';
 
 function SignIn() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Initialisation du hook
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(loginRequest());
         try {
-            const token = await login(email, password);
-            console.log('Token récupéré:', token); // Debug
-            dispatch(loginSuccess(email, token));
+            // Dispatch action de connexion
+            await dispatch(login({ email, password }));
 
-            // Redirection vers userProfile après connexion réussie
-            navigate("/UserProfile");
+            // Redirige l'utilisateur vers la page de profil
+            navigate('/UserProfile');
         } catch (error) {
-            dispatch(loginFailure(error.message));
+            console.error('Erreur lors de la connexion', error);
         }
     };
 
     return (
         <main className="main bg-dark">
             <section className="sign-in-content">
-                <i className="fa fa-user-circle sign-in-icon"></i>
                 <h1>Sign In</h1>
                 <form onSubmit={handleSubmit}>
                     <div className="input-wrapper">
@@ -38,7 +36,6 @@ function SignIn() {
                             id="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            required
                         />
                     </div>
                     <div className="input-wrapper">
@@ -48,10 +45,9 @@ function SignIn() {
                             id="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            required
                         />
                     </div>
-                    <button type="submit" className="sign-in-button">Sign In</button>
+                    <button className="sign-in-button" type="submit">Sign In</button>
                 </form>
             </section>
         </main>

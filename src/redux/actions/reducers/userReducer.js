@@ -1,3 +1,4 @@
+// userReducer.js
 const initialState = {
     isAuthenticated: !!localStorage.getItem('token'),
     user: null,
@@ -11,22 +12,28 @@ export default function userReducer(state = initialState, action) {
             return { ...state, error: null };
 
         case 'LOGIN_SUCCESS':
-            console.log('Login réussi, nouvelle state:', {
-                user: action.payload.user,
-                token: action.payload.token
-            }); // Debug
+
             return {
                 ...state,
                 isAuthenticated: true,
                 user: action.payload.user,
-                token: action.payload.token, // Doit recevoir le token correctement ici
+                token: action.payload.token,
             };
 
+        case 'USER_LOGOUT':
+            return initialState;
 
         case 'LOGIN_FAILURE':
             return { ...state, error: action.payload };
 
+        case "UPDATE_USER_PROFILE_SUCCESS":
+            return {
+                ...state,
+                user: { ...state.user, userName: action.payload },
+
+            };
         default:
             return state;
     }
 }
+

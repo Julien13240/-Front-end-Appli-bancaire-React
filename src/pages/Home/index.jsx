@@ -1,3 +1,5 @@
+// Home.js
+
 import React from 'react';
 import FeatureItem from '../../components/Home/featureItem';
 import iconChat from '../../assets/img/icon-chat.png'
@@ -30,7 +32,7 @@ const featuresList = [
 
 function Home() {
     const dispatch = useDispatch();
-    dispatch({ type: "increment" });
+    dispatch({ type: "Chargement" });
     return (
 
         <main>
@@ -45,9 +47,9 @@ function Home() {
             </div>
             <section className="features">
                 <h2 className="sr-only">Features</h2>
-                {featuresList.map((featureItem) => {
+                {featuresList.map((featureItem, featureIndex) => {
                     return (
-                        <FeatureItem featureItem={featureItem} />
+                        <FeatureItem featureItem={featureItem} key={featureIndex} />
                     )
                 })}
             </section>

@@ -9,8 +9,7 @@ import rootReducer from './redux/actions/reducers/rootReducer';
 
 
 
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './assets/styles/main.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

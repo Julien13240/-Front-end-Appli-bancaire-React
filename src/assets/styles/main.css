@@ -156,6 +156,11 @@ body {
   margin-bottom: 0.5rem;
 }
 
+.edit-button {
+  max-width: 120px;
+  margin: auto;
+}
+
 .sign-in-button,
 .transaction-button,
 .edit-button {

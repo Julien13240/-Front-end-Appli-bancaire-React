@@ -8,6 +8,9 @@ import Home from './pages/Home';
 import Navbar from './components/Navbar';
 import { loginSuccess, logout } from './redux/actions/userActions';
 import { getUserProfile } from './lib/client';
+import UserEdit from './pages/UserEdit';
+import Footer from './components/Footer';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -21,12 +24,18 @@ function App() {
           dispatch(loginSuccess({ token, user: userData }));
         } catch (err) {
           console.error('Error fetching user profile:', err);
-          dispatch(logout());
+          if (err.response && err.response.status === 401) {
+            dispatch(logout());
+            alert("Votre session a expiré. Veuillez vous reconnecter.");
+          } else {
+            console.error("Erreur inconnue :", err.message);
+          }
         }
       }
     };
     fetchData();
   }, [dispatch, token]);
+
 
   return (
     <Router>
@@ -40,7 +49,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/UserProfile" element={token ? <UserProfile /> : <SignIn />} />
+        <Route path="/editUsername" element={<UserEdit />} />
       </Routes>
+      <Footer />
     </Router>
   );
 }
