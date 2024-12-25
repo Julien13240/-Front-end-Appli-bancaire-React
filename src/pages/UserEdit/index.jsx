@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { useNavigate } from 'react-router-dom';
 import { updateUserProfile } from '../../redux/actions/userActions';
 
 import "./index.css"
@@ -10,6 +10,7 @@ import "./index.css"
 function UserEdit() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate(); // Hook pour redirection
 
     // Sélection des données utilisateur depuis le Redux Store
     const { user, } = useSelector((state) => state.user);
@@ -51,7 +52,7 @@ function UserEdit() {
                     </div>
                     <div className='button-edit'>
                         <button onClick={updateUsername} className='save'>Save</button>
-                        <button className='cancel'>Cancel</button>
+                        <button onClick={() => navigate("/UserProfile")} className='cancel'>Cancel</button>
                     </div>
 
                 </form>

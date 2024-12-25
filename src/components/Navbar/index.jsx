@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/actions/userActions";
 import logo from "../../assets/img/argentBankLogo.png"; // Chemin du logo
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 function Navbar() {
     const dispatch = useDispatch();
@@ -30,7 +30,7 @@ function Navbar() {
                         <Link
 
                             className="main-nav-item" to="/UserProfile">
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i className="fa-solid fa-circle-user navbar-icon"></i>
                             {user?.userName || "Utilisateur"}
 
                         </Link>
