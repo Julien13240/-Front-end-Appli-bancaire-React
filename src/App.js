@@ -14,7 +14,7 @@ import Footer from './components/Footer';
 
 function App() {
   const dispatch = useDispatch();
-  const { token, error } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,11 +40,6 @@ function App() {
   return (
     <Router>
       <Navbar />
-      {error && (
-        <div className="error-message" style={{ color: 'red', textAlign: 'center', margin: '10px' }}>
-          {error}
-        </div>
-      )}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sign-in" element={<SignIn />} />

@@ -11,7 +11,7 @@ function UserEdit() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate(); // Hook pour redirection
-
+    const [errorMessage, setErrorMessage] = useState("");
     // Sélection des données utilisateur depuis le Redux Store
     const { user, } = useSelector((state) => state.user);
     const [userName, setUserName] = useState("")
@@ -19,8 +19,12 @@ function UserEdit() {
 
         e.preventDefault()
 
-
+        if (!userName) {
+            setErrorMessage("Veuillez remplir le champ userName")
+            return;
+        }
         dispatch(updateUserProfile({ userName: userName }));
+        navigate("/UserProfile")
 
     }
     useEffect(() => {
@@ -56,6 +60,7 @@ function UserEdit() {
                     </div>
 
                 </form>
+                {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
             </section>
         </main>
 

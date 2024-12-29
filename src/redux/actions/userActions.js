@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = 'http://localhost:3001/api/v1';
 
-// Action creators pour la gestion de la connexion
+// Action pour la gestion de la connexion
 export const loginRequest = () => ({ type: "LOGIN_REQUEST" });
 
 export const loginSuccess = (data) => ({
@@ -39,7 +39,7 @@ export const login = (credentials) => async (dispatch) => {
         // Sauvegarde du token dans le localStorage
         localStorage.setItem("token", token);
 
-        // Envoi des données utilisateur dans le store Redux
+        // Envoi des données utilisateur dans le store Redux (userReducer)
         dispatch(loginSuccess({ token, user }));
     } catch (error) {
         dispatch(

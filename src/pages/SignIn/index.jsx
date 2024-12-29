@@ -1,7 +1,5 @@
-// SignIn.js
-
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../redux/actions/userActions';
 
@@ -10,6 +8,7 @@ function SignIn() {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const error = useSelector((state) => state.user.error); // Accès au message d'erreur depuis Redux
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,7 +39,7 @@ function SignIn() {
                     </div>
                     <div className="input-wrapper">
                         <label htmlFor="password">Password</label>
-                        <input autoComplete='false'
+                        <input
                             type="password"
                             id="password"
                             value={password}
@@ -49,6 +48,9 @@ function SignIn() {
                     </div>
                     <button className="sign-in-button" type="submit">Sign In</button>
                 </form>
+
+                {/* Affichage du message d'erreur sous le formulaire */}
+                {error && <p style={{ color: 'red', marginTop: '10px' }}>{error}</p>}
             </section>
         </main>
     );
